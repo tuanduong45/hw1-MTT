@@ -32,25 +32,19 @@ def calculate_hol_throughput(fabric_size):
             if len(input_queues[input_port]) > 0:
                 # print(input_queues[input_port])
                 if input_queues[input_port][0] not in l_empty:
-                    # theo thu tu
+                    # choose a packet with min index
                     packet_destination = input_queues[input_port].pop(0)
                 l_empty.append(packet_destination)
-                # print(packet_destination)
-                # print("----")
-        # print(l_empty)
         l_empty = []
 
-    number_of_packkets_not_forwarded = 0
-
+    number_of_packets_not_forwarded = 0
     for i in input_queues:
         # print(i)
-        number_of_packkets_not_forwarded = len(i) + number_of_packkets_not_forwarded
+        number_of_packets_not_forwarded = len(i) + number_of_packets_not_forwarded
 
-    # Caculate throughput
+    # Calculate throughput
     thoughput = 100 - (
-        number_of_packkets_not_forwarded
-        / (num_input_ports * num_packets_per_input)
-        * 100
+        number_of_packets_not_forwarded / (num_input_ports * num_packets_per_input) * 100
     )
     return thoughput
 
